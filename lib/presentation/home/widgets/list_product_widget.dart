@@ -6,7 +6,6 @@ import 'package:vapestore/data/models/responses/list_product_response_model.dart
 
 class ListProductWidget extends StatefulWidget {
   const ListProductWidget({super.key});
-
   @override
   State<ListProductWidget> createState() => _ListProductWidgetState();
 }
@@ -39,15 +38,15 @@ class _ListProductWidgetState extends State<ListProductWidget> {
             ),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              childAspectRatio: 0.65,
+              mainAxisSpacing: 15,
+              crossAxisSpacing: 15,
+              childAspectRatio: 0.61,
             ),
             itemBuilder: (context, index) {
               final Product product = state.data.data![index];
               return Card(
                 elevation: 2,
-                shadowColor: const Color(0xffEE4D2D),
+                shadowColor: Color.fromARGB(255, 49, 49, 49),
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -58,24 +57,22 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                     Hero(
                       tag: product.attributes!.image!,
                       child: SizedBox(
-                        width: 150,
-                        height: 120,
-                        child: Image.network(product.attributes!.image!),
+                        // width: 160,
+                        // height: 130,
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                          child: Image.network(
+                            product.attributes!.image!,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(
                       height: 8,
-                    ),
-                    Text(
-                      product.attributes!.price!.toString(),
-                      style: const TextStyle(
-                        color: const Color(0xffEE4D2D),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 4,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -84,9 +81,20 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                         maxLines: 2,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                         ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      product.attributes!.price!.toString(),
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 39, 38, 38),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(
@@ -99,7 +107,7 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
@@ -112,16 +120,16 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                                     context.read<CheckoutBloc>().add(
                                         RemoveFromCartEvent(product: product));
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.add_shopping_cart,
                                     size: 20,
                                     color: Color(0xffEE4D2D),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 2,
                                 ),
-                                Text(
+                                const Text(
                                   "Beli",
                                   style: TextStyle(
                                     color: Color(0xffEE4D2D),
@@ -130,19 +138,39 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
+                              height: 8,
                             ),
                             Row(
                               children: [
-                                Icon(
-                                  Icons.remove_circle_outline,
-                                  size: 18,
-                                  color: Color(0xffEE4D2D),
+                                InkWell(
+                                  onTap: () {
+                                    context.read<CheckoutBloc>().add(
+                                        RemoveFromCartEvent(product: product));
+                                  },
+                                  child: const Icon(
+                                    Icons.remove_circle_outline,
+                                    size: 18,
+                                    color: Color(0xffEE4D2D),
+                                  ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text('0'),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  child:
+                                      BlocBuilder<CheckoutBloc, CheckoutState>(
+                                    builder: (context, state) {
+                                      if (state is CheckoutLoaded) {
+                                        final countItem = state.items
+                                            .where((element) =>
+                                                element.id == product.id)
+                                            .length;
+                                        return Text('$countItem');
+                                      }
+                                      return const Text('0');
+                                    },
+                                  ),
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -150,7 +178,7 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                                         .read<CheckoutBloc>()
                                         .add(AddToCartEvent(product: product));
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.add_circle_outline,
                                     size: 18,
                                     color: Color(0xffEE4D2D),
@@ -169,7 +197,6 @@ class _ListProductWidgetState extends State<ListProductWidget> {
             itemCount: state.data.data!.length,
           );
         }
-
         return const Center(
           child: CircularProgressIndicator(),
         );

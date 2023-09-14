@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vapestore/presentation/cart/cart_page.dart';
 import 'package:vapestore/presentation/home/widgets/banner_widget.dart';
 import 'package:vapestore/presentation/home/widgets/list_category_widget.dart';
 import 'package:vapestore/presentation/home/widgets/list_product_widget.dart';
 import 'package:badges/badges.dart' as badges;
-
 import '../../bloc/checkout/checkout_bloc.dart';
 import '../../common/global_variables.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int _page = 0;
+  final _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
   @override
@@ -25,8 +24,10 @@ class _HomePageState extends State<HomePage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
+          automaticallyImplyLeading: false,
           flexibleSpace: Container(
-            decoration: const BoxDecoration(color: Color(0xffEE4D2D)),
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 49, 49, 49)),
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,6 +101,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: BannerWidget(),
           ),
+          SizedBox(height: 30),
           Padding(
             padding: EdgeInsets.only(left: 16),
             child: Text(
@@ -110,9 +112,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SizedBox(
-            height: 8,
-          ),
+          // SizedBox(
+          //   height: 0,
+          // ),
           Expanded(child: ListProductWidget())
         ],
       ),
@@ -187,24 +189,32 @@ class _HomePageState extends State<HomePage> {
                       // elevation: 0,
                       badgeContent: Text(
                         '${state.items.length}',
-                        style: TextStyle(color: Color(0xffEE4D2D)),
+                        style: const TextStyle(color: Color(0xffEE4D2D)),
                       ),
-                      // badgeColor: Colors.white,
-                      child: const Icon(
-                        Icons.shopping_cart_outlined,
+                      // badgeCo
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const CartPage();
+                          }));
+                        },
+                        child: const Icon(
+                          Icons.shopping_cart_outlined,
+                        ),
                       ),
                     );
                   }
-                  return badges.Badge(
-                    badgeStyle: const badges.BadgeStyle(
+                  return const badges.Badge(
+                    badgeStyle: badges.BadgeStyle(
                         elevation: 0, badgeColor: Colors.white),
                     // elevation: 0,
                     badgeContent: Text(
-                      '4',
+                      '0',
                       style: TextStyle(color: Color(0xffEE4D2D)),
                     ),
                     // badgeColor: Colors.white,
-                    child: const Icon(
+                    child: Icon(
                       Icons.shopping_cart_outlined,
                     ),
                   );

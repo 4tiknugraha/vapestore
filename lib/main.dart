@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vapestore/data/datasources/product_remote_datasource.dart';
+import 'package:vapestore/bloc/login/login_bloc.dart';
+import 'package:vapestore/data/datasources/auth_remote_datasource.dart';
 import 'package:vapestore/presentation/home/home_page.dart';
 
 import 'bloc/checkout/checkout_bloc.dart';
@@ -22,6 +24,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CheckoutBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LoginBloc(AuthRemoteDatasource()),
         ),
       ],
       child: MaterialApp(
