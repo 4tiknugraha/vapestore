@@ -64,10 +64,14 @@ class _AccountPageState extends State<AccountPage> {
                 ElevatedButton(
                     onPressed: () async {
                       await AuthLocalDatasource().removeAuthData();
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const AuthPage();
-                      }));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const AuthPage();
+                          },
+                        ),
+                      );
                     },
                     child: const Text('Logout')),
               ],
@@ -167,12 +171,12 @@ class _AccountPageState extends State<AccountPage> {
                     return InkWell(
                       onTap: () {
                         // Navigator.push(
-                          // context,
-                          // MaterialPageRoute(
-                            // builder: (context) {
-                              // return const CartPage();
-                            // },
-                          // ),
+                        // context,
+                        // MaterialPageRoute(
+                        // builder: (context) {
+                        // return const CartPage();
+                        // },
+                        // ),
                         // );
                       },
                       child: badges.Badge(

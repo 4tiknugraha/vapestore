@@ -46,10 +46,10 @@ class _ListProductWidgetState extends State<ListProductWidget> {
               final Product product = state.data.data![index];
               return Card(
                 elevation: 2,
-                shadowColor: Color.fromARGB(255, 49, 49, 49),
+                shadowColor: const Color.fromARGB(255, 49, 49, 49),
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -61,8 +61,8 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                         // height: 130,
                         child: ClipRRect(
                           borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8),
                           ),
                           child: Image.network(
                             product.attributes!.image!,
@@ -118,7 +118,8 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                                 InkWell(
                                   onTap: () {
                                     context.read<CheckoutBloc>().add(
-                                        RemoveFromCartEvent(product: product));
+                                          RemoveFromCartEvent(product: product),
+                                        );
                                   },
                                   child: const Icon(
                                     Icons.add_shopping_cart,
@@ -152,7 +153,7 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                                   child: const Icon(
                                     Icons.remove_circle_outline,
                                     size: 18,
-                                    color: Color(0xffEE4D2D),
+                                    color: Color.fromARGB(255, 227, 148, 12),
                                   ),
                                 ),
                                 Padding(
