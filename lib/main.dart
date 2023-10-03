@@ -8,10 +8,10 @@ import 'package:vapestore/presentation/home/home_page.dart';
 import 'bloc/checkout/checkout_bloc.dart';
 import 'bloc/get_products/get_products_bloc.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
