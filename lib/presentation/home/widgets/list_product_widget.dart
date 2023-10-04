@@ -50,7 +50,7 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                 shadowColor: Colors.grey.withOpacity(0.7),
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(9),
                 ),
                 child: Container(
                   decoration: BoxDecoration(
@@ -63,17 +63,17 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                       ],
                       color: Colors.white),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Hero(
                         tag: product.attributes!.image!,
                         child: SizedBox(
-                          // width: 160,
-                          // height: 130,
+                          // width: 170,
+                          // height: 165,
                           child: ClipRRect(
                             borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              topRight: Radius.circular(8),
+                              topLeft: Radius.circular(9),
+                              topRight: Radius.circular(9),
                             ),
                             child: Image.network(
                               product.attributes!.image!,
@@ -86,11 +86,12 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                         height: 8,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         child: Text(
                           product.attributes!.name!,
+                          overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -101,13 +102,14 @@ class _ListProductWidgetState extends State<ListProductWidget> {
                         height: 4,
                       ),
                       Text(
-                        FormatCurrency.convertToIdr(
-                            product.attributes!.price!, 2),
                         // product.attributes!.price!.toString(),
+                        FormatCurrency.convertToIdr(
+                            product.attributes!.price!, 0),
+                        textAlign: TextAlign.justify,
                         style: const TextStyle(
                           color: Color.fromARGB(255, 39, 38, 38),
                           fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w900,
                         ),
                       ),
                       const SizedBox(
@@ -223,10 +225,10 @@ class _ListProductWidgetState extends State<ListProductWidget> {
 
 // Format Currency
 class FormatCurrency {
-  static String convertToIdr(dynamic number, int decimalDigit) {
+  static String convertToIdr(number, int decimalDigit) {
     NumberFormat currencyFormatter = NumberFormat.currency(
       locale: 'id',
-      symbol: 'Rp ',
+      symbol: 'Rp',
       decimalDigits: decimalDigit,
     );
     return currencyFormatter.format(number);

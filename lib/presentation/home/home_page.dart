@@ -1,12 +1,8 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vapestore/presentation/cart/cart_page.dart';
 import 'package:vapestore/presentation/home/widgets/banner_widget.dart';
 import 'package:vapestore/presentation/home/widgets/list_category_widget.dart';
 import 'package:vapestore/presentation/home/widgets/list_product_widget.dart';
-import 'package:badges/badges.dart' as badges;
-import '../../bloc/checkout/checkout_bloc.dart';
-import '../../common/global_variables.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,9 +31,9 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: Container(
                   height: 42,
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  margin: const EdgeInsets.symmetric(horizontal: 0),
                   child: Material(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(50),
                     elevation: 3,
                     child: TextFormField(
                       onFieldSubmitted: (_) {},
@@ -51,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                             child: Icon(
                               Icons.search,
                               color: Colors.black,
-                              size: 23,
+                              size: 30,
                             ),
                           ),
                         ),
@@ -60,13 +56,13 @@ class _HomePageState extends State<HomePage> {
                         contentPadding: const EdgeInsets.only(top: 10),
                         border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(7),
+                            Radius.circular(50),
                           ),
                           borderSide: BorderSide.none,
                         ),
                         enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(7),
+                            Radius.circular(50),
                           ),
                           borderSide: BorderSide(
                             color: Colors.black38,
@@ -75,8 +71,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                         hintText: 'Search ',
                         hintStyle: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
                         ),
                       ),
                     ),
@@ -101,128 +97,144 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: BannerWidget(),
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 20),
           Padding(
             padding: EdgeInsets.only(left: 16),
             child: Text(
-              'List Product',
+              'Rekomendasi Untuk Anda',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
+          SizedBox(height: 5),
           // SizedBox(
           //   height: 0,
           // ),
           Expanded(child: ListProductWidget())
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: GlobalVariables.selectedNavBarColor,
-        unselectedItemColor: GlobalVariables.unselectedNavBarColor,
-        backgroundColor: GlobalVariables.backgroundColor,
-        iconSize: 28,
+      extendBody: true,
+      bottomNavigationBar: CurvedNavigationBar(
+        // currentIndex: 0,
+        // selectedItemColor: GlobalVariables.selectedNavBarColor,
+        // unselectedItemColor: const Color.fromARGB(221, 172, 224, 14),
+        color: Colors.grey.shade300,
+        backgroundColor: Colors.transparent,
+        animationDuration: const Duration(milliseconds: 340),
+        // iconSize: 28,
         onTap: (index) {},
-        items: [
+        items: const [
+          Icon(
+            Icons.home,
+            color: Colors.black,
+          ),
+          Icon(
+            Icons.favorite,
+            color: Colors.black,
+          ),
+          Icon(
+            Icons.settings,
+            color: Colors.black,
+          ),
           // HOME
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 0
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
-                  ),
-                ),
-              ),
-              child: const Icon(
-                Icons.home_outlined,
-              ),
-            ),
-            label: '',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Container(
+          //     width: bottomBarWidth,
+          //     decoration: BoxDecoration(
+          //       border: Border(
+          //         top: BorderSide(
+          //           color: _page == 0
+          //               ? GlobalVariables.selectedNavBarColor
+          //               : GlobalVariables.backgroundColor,
+          //           width: bottomBarBorderWidth,
+          //         ),
+          //       ),
+          //     ),
+          //     child: const Icon(
+          //       Icons.home_outlined,
+          //     ),
+          //   ),
+          //   label: '',
+          // ),
           // ACCOUNT
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 1
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
-                  ),
-                ),
-              ),
-              child: const Icon(
-                Icons.person_outline_outlined,
-              ),
-            ),
-            label: '',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Container(
+          //     width: bottomBarWidth,
+          //     decoration: BoxDecoration(
+          //       border: Border(
+          //         top: BorderSide(
+          //           color: _page == 1
+          //               ? GlobalVariables.selectedNavBarColor
+          //               : GlobalVariables.backgroundColor,
+          //           width: bottomBarBorderWidth,
+          //         ),
+          //       ),
+          //     ),
+          //     child: const Icon(
+          //       Icons.person_outline_outlined,
+          //     ),
+          //   ),
+          //   label: '',
+          // ),
           // CART
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 2
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
-                  ),
-                ),
-              ),
-              child: BlocBuilder<CheckoutBloc, CheckoutState>(
-                builder: (context, state) {
-                  if (state is CheckoutLoaded) {
-                    return badges.Badge(
-                      badgeStyle: const badges.BadgeStyle(
-                          elevation: 0, badgeColor: Colors.white),
-                      // elevation: 0,
-                      badgeContent: Text(
-                        '${state.items.length}',
-                        style: const TextStyle(color: Color(0xffEE4D2D)),
-                      ),
-                      // badgeCo
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const CartPage();
-                          }));
-                        },
-                        child: const Icon(
-                          Icons.shopping_cart_outlined,
-                        ),
-                      ),
-                    );
-                  }
-                  return const badges.Badge(
-                    badgeStyle: badges.BadgeStyle(
-                        elevation: 0, badgeColor: Colors.white),
-                    // elevation: 0,
-                    badgeContent: Text(
-                      '0',
-                      style: TextStyle(color: Color(0xffEE4D2D)),
-                    ),
-                    // badgeColor: Colors.white,
-                    child: Icon(
-                      Icons.shopping_cart_outlined,
-                    ),
-                  );
-                },
-              ),
-            ),
-            label: '',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Container(
+          //     width: bottomBarWidth,
+          //     decoration: BoxDecoration(
+          //       border: Border(
+          //         top: BorderSide(
+          //           color: _page == 2
+          //               ? GlobalVariables.selectedNavBarColor
+          //               : GlobalVariables.backgroundColor,
+          //           width: bottomBarBorderWidth,
+          //         ),
+          //       ),
+          //     ),
+          //     child: BlocBuilder<CheckoutBloc, CheckoutState>(
+          //       builder: (context, state) {
+          //         if (state is CheckoutLoaded) {
+          //           return badges.Badge(
+          //             badgeStyle: const badges.BadgeStyle(
+          //                 elevation: 0, badgeColor: Colors.white),
+          //             // elevation: 0,
+          //             badgeContent: Text(
+          //               '${state.items.length}',
+          //               style: const TextStyle(color: Color(0xffEE4D2D)),
+          //             ),
+          //             // badgeCo
+          //             child: InkWell(
+          //               onTap: () {
+          //                 Navigator.push(context,
+          //                     MaterialPageRoute(builder: (context) {
+          //                   return const CartPage();
+          //                 }));
+          //               },
+          //               child: const Icon(
+          //                 Icons.shopping_cart_outlined,
+          //               ),
+          //             ),
+          //           );
+          //         }
+          //         return const badges.Badge(
+          //           badgeStyle: badges.BadgeStyle(
+          //               elevation: 0, badgeColor: Colors.white),
+          //           // elevation: 0,
+          //           badgeContent: Text(
+          //             '0',
+          //             style: TextStyle(color: Color(0xffEE4D2D)),
+          //           ),
+          //           // badgeColor: Colors.white,
+          //           child: Icon(
+          //             Icons.shopping_cart_outlined,
+          //           ),
+          //         );
+          //       },
+          //     ),
+          //   ),
+          //   label: '',
+          // ),
         ],
       ),
     );
